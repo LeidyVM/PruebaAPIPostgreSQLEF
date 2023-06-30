@@ -1,5 +1,11 @@
 # PruebaAPIPostgreSQLEF
 
+# Leidy Vallejo
+
+¡Hola, bienvenido a mi repositorio!
+
+Te dejo una lista de los comandos que puedes ejecutar, cualquier duda no dudes en contactarme.
+
 Comandos a correr
 
 dotnet tool install --global dotnet-ef <- instala dotnet en dado caso de que no esté isntalado
