@@ -7,6 +7,6 @@ namespace PruebaAPIPostgreSQLEF.Data
     {
         public InfoDirectorio(DbContextOptions<InfoDirectorio> options) : base(options) {
     }
-        public DbSet<Directorio> Directorio => Set<Directorio>();
+        public DbSet<Phonebook> Phonebook => Set<Phonebook>();
     }
 }

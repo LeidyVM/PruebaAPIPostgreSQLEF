@@ -36,9 +36,9 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
-app.MapPost("/phonebook/", async (Directorio e, InfoDirectorio db) =>
+app.MapPost("/phonebook/", async (Phonebook e, InfoDirectorio db) =>
 {
-    db.Directorio.Add(e);
+    db.Phonebook.Add(e);
     await db.SaveChangesAsync();
 
     return Results.Created($"/phonebook/{e.Id}", e);
@@ -47,21 +47,21 @@ app.MapPost("/phonebook/", async (Directorio e, InfoDirectorio db) =>
 
 app.MapGet("/phonebook/{id:int}", async (int id, InfoDirectorio db) =>
 {
-    return await db.Directorio.FindAsync(id)
-        is Directorio e
+    return await db.Phonebook.FindAsync(id)
+        is Phonebook e
         ? Results.Ok(e)
         : Results.NotFound();
 
 });
 
-app.MapGet("/phonebook", async (InfoDirectorio db) => await db.Directorio.ToListAsync());
+app.MapGet("/phonebook", async (InfoDirectorio db) => await db.Phonebook.ToListAsync());
 
-app.MapPut("/phonebook/{id:int}", async (int id, Directorio e, InfoDirectorio db) =>
+app.MapPut("/phonebook/{id:int}", async (int id, Phonebook e, InfoDirectorio db) =>
 {
     if (e.Id != id)
         return Results.BadRequest();
 
-    var contacto = await db.Directorio.FindAsync(id);
+    var contacto = await db.Phonebook.FindAsync(id);
 
     if (contacto is null) return Results.NotFound();
 
@@ -78,10 +78,10 @@ app.MapPut("/phonebook/{id:int}", async (int id, Directorio e, InfoDirectorio db
 
 app.MapDelete("/phonebook/{id:int}", async (int id, InfoDirectorio db) =>
 {
-    var contacto = await db.Directorio.FindAsync(id);
+    var contacto = await db.Phonebook.FindAsync(id);
     if (contacto is null) return Results.NotFound();
 
-    db.Directorio.Remove(contacto);
+    db.Phonebook.Remove(contacto);
     await db.SaveChangesAsync();
 
     return Results.NoContent();

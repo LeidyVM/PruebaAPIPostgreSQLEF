@@ -2,7 +2,7 @@
 
 namespace PruebaAPIPostgreSQLEF.Modelos
 {
-    public class Directorio
+    public class Phonebook
        {
         [Key]
         public int Id { get; set; }
