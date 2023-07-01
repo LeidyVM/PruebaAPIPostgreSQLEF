@@ -3,9 +3,9 @@ using PruebaAPIPostgreSQLEF.Modelos;
 
 namespace PruebaAPIPostgreSQLEF.Data
 {
-    public class InfoDirectorio: DbContext
+    public class DirectoryInformation: DbContext
     {
-        public InfoDirectorio(DbContextOptions<InfoDirectorio> options) : base(options) {
+        public DirectoryInformation(DbContextOptions<DirectoryInformation> options) : base(options) {
     }
         public DbSet<Phonebook> Phonebook => Set<Phonebook>();
     }

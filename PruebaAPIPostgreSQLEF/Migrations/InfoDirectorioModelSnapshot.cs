@@ -9,7 +9,7 @@ using PruebaAPIPostgreSQLEF.Data;
 
 namespace PruebaAPIPostgreSQLEF.Migrations
 {
-    [DbContext(typeof(InfoDirectorio))]
+    [DbContext(typeof(DirectoryInformation))]
     partial class InfoDirectorioModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

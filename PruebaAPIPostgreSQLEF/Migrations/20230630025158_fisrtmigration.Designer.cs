@@ -10,7 +10,7 @@ using PruebaAPIPostgreSQLEF.Data;
 
 namespace PruebaAPIPostgreSQLEF.Migrations
 {
-    [DbContext(typeof(InfoDirectorio))]
+    [DbContext(typeof(DirectoryInformation))]
     [Migration("20230630025158_fisrtmigration")]
     partial class fisrtmigration
     {
