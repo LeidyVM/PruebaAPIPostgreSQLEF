@@ -12,6 +12,17 @@ var connetionString = builder.Configuration.GetConnectionString("PostgreSQLConne
 builder.Services.AddDbContext<InfoDirectorio>(options =>
     options.UseNpgsql(connetionString));
 
+// Configuraci�n de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,16 +34,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/contactos/", async (Directorio e, InfoDirectorio db) =>
+app.UseCors();
+
+app.MapPost("/phonebook/", async (Directorio e, InfoDirectorio db) =>
 {
     db.Directorio.Add(e);
     await db.SaveChangesAsync();
 
-    return Results.Created($"/contactos/{e.Id}", e);
+    return Results.Created($"/phonebook/{e.Id}", e);
 
 });
 
-app.MapGet("/contactos/{id:int}", async (int id, InfoDirectorio db) =>
+app.MapGet("/phonebook/{id:int}", async (int id, InfoDirectorio db) =>
 {
     return await db.Directorio.FindAsync(id)
         is Directorio e
@@ -41,11 +54,12 @@ app.MapGet("/contactos/{id:int}", async (int id, InfoDirectorio db) =>
 
 });
 
-app.MapGet("/contactos", async (InfoDirectorio db) => await db.Directorio.ToListAsync());
+app.MapGet("/phonebook", async (InfoDirectorio db) => await db.Directorio.ToListAsync());
 
-app.MapPut("/contactos/{id:int}", async (int id, Directorio e, InfoDirectorio db) =>
+app.MapPut("/phonebook/{id:int}", async (int id, Directorio e, InfoDirectorio db) =>
 {
- 
+    if (e.Id != id)
+        return Results.BadRequest();
 
     var contacto = await db.Directorio.FindAsync(id);
 
@@ -62,7 +76,7 @@ app.MapPut("/contactos/{id:int}", async (int id, Directorio e, InfoDirectorio db
 
 });
 
-app.MapDelete("/contactos/{id:int}", async (int id, InfoDirectorio db) =>
+app.MapDelete("/phonebook/{id:int}", async (int id, InfoDirectorio db) =>
 {
     var contacto = await db.Directorio.FindAsync(id);
     if (contacto is null) return Results.NotFound();
